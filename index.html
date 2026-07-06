@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cheers to (to be) Dr. Tiffany</title>
+    <meta
+      name="description"
+      content="A PhD finish celebration page for friends and family to leave congratulations and share photos."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero__image" role="img" aria-label="A festive desk with flowers, champagne, and a finished dissertation."></div>
+        <div class="hero__content">
+          <p class="eyebrow">PhD to be completed</p>
+          <h1 id="page-title">
+            Cheers to
+            <span class="title-name"><span class="title-soon">(to be)</span> Dr. Tiffany</span>
+          </h1>
+          <p class="hero__copy">
+            A little wall of love as Tiffany pushing the finishing line.
+          </p>
+          <div class="hero__actions" aria-label="Page actions">
+            <a href="#sign" class="button button--primary">Leave a message</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-band" aria-label="Celebration highlights">
+        <div>
+          <span class="stat">0.5</span>
+          <span>new doctor in the world</span>
+        </div>
+        <div>
+          <span class="stat">countless</span>
+          <span>coffee-fueled breakthroughs</span>
+        </div>
+        <div>
+          <span class="stat">forever</span>
+          <span>proud friends and colleagues</span>
+        </div>
+      </section>
+
+      <section class="message-wall" id="messages" aria-labelledby="messages-title">
+        <div class="section-heading">
+          <p class="eyebrow">message wall</p>
+          <h2 id="messages-title">Notes waiting for Tiffany</h2>
+        </div>
+        <div class="messages-grid" id="messageWall"></div>
+      </section>
+
+      <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
+        <div class="section-heading">
+          <p class="eyebrow">photo album</p>
+          <h2 id="gallery-title">Shared moments</h2>
+        </div>
+        <div class="photo-grid" id="photoGrid"></div>
+      </section>
+
+      <section class="guestbook" id="sign" aria-labelledby="guestbook-title">
+        <div class="guestbook__text">
+          <p class="eyebrow">join the surprise</p>
+          <h2 id="guestbook-title">Add your congratulations</h2>
+          <p>
+            A little wall of love.
+          </p>
+        </div>
+
+        <form class="guestbook-form" id="guestbookForm">
+          <label>
+            Your name
+            <input type="text" name="name" autocomplete="name" placeholder="e.g. Ranran" required>
+          </label>
+
+          <label>
+            Congratulations message
+            <textarea
+              name="message"
+              rows="5"
+              placeholder="Tell Tiffany how proud you are..."
+              required
+            ></textarea>
+          </label>
+
+          <label>
+            Photos
+            <input type="file" name="photos" id="photoInput" accept="image/*" multiple>
+          </label>
+
+          <button class="button button--primary" type="submit">Send love</button>
+          <p class="form-note" id="formNote" role="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      Made with love for a once-in-a-lifetime finish.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
