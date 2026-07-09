@@ -115,12 +115,26 @@ const getFileExtension = (file) => {
   return file.type.split("/").pop() || "jpg";
 };
 
+const createUploadId = () => {
+  if (window.crypto?.randomUUID) {
+    return window.crypto.randomUUID();
+  }
+
+  if (window.crypto?.getRandomValues) {
+    const values = new Uint32Array(4);
+    window.crypto.getRandomValues(values);
+    return Array.from(values, (value) => value.toString(16).padStart(8, "0")).join("-");
+  }
+
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+};
+
 const uploadPhotos = async (files) => {
   const urls = [];
 
   for (const file of files) {
     const extension = getFileExtension(file);
-    const path = `${crypto.randomUUID()}.${extension}`;
+    const path = `${createUploadId()}.${extension}`;
 
     const { error } = await supabaseClient.storage.from(photoBucket).upload(path, file, {
       cacheControl: "3600",
