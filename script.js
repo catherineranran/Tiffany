@@ -20,6 +20,13 @@ const photoBucket = config.photoBucket || "celebration-photos";
 const renderedMessageIds = new Set();
 
 const createMessageCard = ({ id, name, message, prepend = false }) => {
+  if (!message.trim()) {
+    if (id) {
+      renderedMessageIds.add(id);
+    }
+    return;
+  }
+
   if (id && renderedMessageIds.has(id)) {
     return;
   }
@@ -175,7 +182,8 @@ form?.addEventListener("submit", async (event) => {
     .filter((file) => file.type.startsWith("image/"))
     .slice(0, 6);
 
-  if (!name || !message) {
+  if (!name || (!message && files.length === 0)) {
+    formNote.textContent = "Add a message or at least one photo.";
     return;
   }
 
@@ -196,7 +204,7 @@ form?.addEventListener("submit", async (event) => {
       .from("messages")
       .insert({
         name,
-        message,
+        message: message || "",
         photo_urls: photoUrls,
       })
       .select("id, name, message, photo_urls, created_at")

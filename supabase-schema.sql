@@ -27,7 +27,11 @@ on public.messages
 for insert
 with check (
   length(trim(name)) between 1 and 80
-  and length(trim(message)) between 1 and 1200
+  and length(trim(message)) <= 1200
+  and (
+    length(trim(message)) > 0
+    or coalesce(array_length(photo_urls, 1), 0) > 0
+  )
   and coalesce(array_length(photo_urls, 1), 0) <= 6
 );
 
