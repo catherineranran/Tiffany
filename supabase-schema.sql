@@ -51,6 +51,5 @@ on storage.objects
 for insert
 with check (
   bucket_id = 'celebration-photos'
-  and owner is null
   and lower((storage.extension(name))) in ('jpg', 'jpeg', 'png', 'gif', 'webp')
 );

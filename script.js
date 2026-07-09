@@ -18,6 +18,7 @@ const supabaseClient = hasSupabaseConfig
 
 const photoBucket = config.photoBucket || "celebration-photos";
 const renderedMessageIds = new Set();
+const allowedPhotoTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 
 const createMessageCard = ({ id, name, message, prepend = false }) => {
   if (!message.trim()) {
@@ -179,8 +180,13 @@ form?.addEventListener("submit", async (event) => {
   const name = String(formData.get("name") || "").trim();
   const message = String(formData.get("message") || "").trim();
   const files = Array.from(photoInput.files || [])
-    .filter((file) => file.type.startsWith("image/"))
+    .filter((file) => allowedPhotoTypes.includes(file.type))
     .slice(0, 6);
+
+  if ((photoInput.files || []).length > files.length) {
+    formNote.textContent = "Please use JPG, PNG, GIF, or WebP photos.";
+    return;
+  }
 
   if (!name || (!message && files.length === 0)) {
     formNote.textContent = "Add a message or at least one photo.";
@@ -218,7 +224,10 @@ form?.addEventListener("submit", async (event) => {
     form.reset();
     formNote.textContent = "Sent. Everyone will see it here soon.";
   } catch (error) {
-    formNote.textContent = "Something went wrong. Please try again.";
+    console.error(error);
+    formNote.textContent = error?.message
+      ? `Upload failed: ${error.message}`
+      : "Something went wrong. Please try again.";
   }
 });
 
